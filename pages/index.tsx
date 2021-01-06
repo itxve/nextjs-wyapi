@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-export default function Home(p:any·) {
+export default function Home(p:any) {
   if (p) {
     throw new Error("123");
     
