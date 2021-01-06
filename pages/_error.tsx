@@ -4,7 +4,7 @@ function Error({ statusCode }:ErrorProps) {
   return (
     <p style={{color:"#F90D0D"}}>
       {statusCode
-        ? `An error ${statusCode} occurred on server`
+        ? `An error ${statusCode} occurred ffffffon server`
         : 'An error occurred on client'}
     </p>
   )
