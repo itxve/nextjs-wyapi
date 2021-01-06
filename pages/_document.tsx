@@ -6,7 +6,6 @@ function WyDocument() {
       <Head />
       <body>
         <Main />
-        <p>000000</p>
         <NextScript />
       </body>
     </Html>
