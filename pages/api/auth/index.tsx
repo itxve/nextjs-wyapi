@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import github from './github';
 
 export default (req: NextApiRequest, res: NextApiResponse): void => {
-    res.status(200).json({ name: 'John Doe' });
+    github(req, res);
 };
