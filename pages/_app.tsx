@@ -18,9 +18,8 @@ const theme = createMuiTheme({
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <ThemeProvider theme={theme}>
-            <CssBaseline>
-                <Component {...pageProps} />
-            </CssBaseline>
+            <CssBaseline />
+            <Component {...pageProps} />
         </ThemeProvider>
     );
 }

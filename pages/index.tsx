@@ -1,124 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { Avatar, Button, CssBaseline, TextField } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
-import { GitHub } from '@material-ui/icons';
+import React, { useEffect } from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Copyright from './Copyright';
-import config from '../config';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
-const { github } = config;
-console.log('githubgithubgithub', github);
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            flexGrow: 1
+        },
+        menuButton: {
+            marginRight: theme.spacing(2)
+        },
+        title: {
+            flexGrow: 1
+        }
+    })
+);
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1)
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2)
-    }
-}));
-export default function Index() {
+export default function Main(props: any) {
+    useEffect(() => {
+        if (!localStorage.getItem('login')) {
+            location.href = '/login';
+        }
+    }, []);
+
     const classes = useStyles();
+
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar} src="/assets/wangyi.png" />
-                <Typography component="h1" variant="h6">
-                    登陆至网易云
-                </Typography>
-                <form className={classes.form} noValidate>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        type="email"
-                        id="email"
-                        label="Email Address Or Phone"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
-
-                    <Box>
-                        <Button
-                            variant="contained"
-                            onClick={() => {
-                                location.href = github.AUTHORIZE;
-                            }}
-                            color="primary"
-                            disableElevation
-                        >
-                            <Login action="login" />
-                        </Button>
-                    </Box>
-                </form>
-            </div>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
-        </Container>
+        <div className={classes.root}>
+            <AppBar position="fixed">
+                <Toolbar>
+                    <IconButton
+                        edge="start"
+                        className={classes.menuButton}
+                        color="inherit"
+                        aria-label="menu"
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" className={classes.title}>
+                        News
+                    </Typography>
+                    <Button color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
+        </div>
     );
-
-    function Login({ action }: any) {
-        const [state, setstate] = useState(undefined);
-
-        useEffect(() => {
-            if (!state) {
-                const url = window.location.href;
-                const hasCode = url.includes('?code=');
-                // If Github API returns the code parameter
-                if (hasCode) {
-                    const newUrl = url.split('?code=');
-                    // window.history.pushState({}, null, newUrl[0]);
-                    console.log('hasCode', newUrl);
-                    const requestData = {
-                        client_id: 'd9fa9dd33e73f65a0a61',
-                        code: newUrl[1]
-                    };
-                    fetch(github.GETACCESSTOKEN, {
-                        method: 'POST',
-                        body: JSON.stringify(requestData),
-                        headers: {
-                            'content-type': 'application/json'
-                        }
-                    })
-                        .then((response) => response.json())
-                        .then((data) => {
-                            setstate(data);
-                        })
-                        .catch((error) => {
-                            console.log('error', error);
-                        });
-                }
-            }
-        }, []);
-
-        return <GitHub />;
-    }
 }
