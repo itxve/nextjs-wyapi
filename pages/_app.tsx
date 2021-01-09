@@ -1,6 +1,6 @@
 import '../styles/globals.css';
 import type { AppProps /* , AppContext */ } from 'next/app';
-
+//update
 import { createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 const theme = createMuiTheme({
