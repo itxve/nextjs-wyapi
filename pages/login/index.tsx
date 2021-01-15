@@ -1,6 +1,5 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
@@ -8,6 +7,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import TypedAni from '@/components/TypedAni';
+import Login from './Login';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -68,7 +69,9 @@ export default function Index() {
                     md={7}
                     className={classes.image}
                     style={{ backgroundColor: 'rgba(253,253,253,.85)' }}
-                />
+                >
+                    <TypedAni />
+                </Grid>
                 <Grid
                     item
                     xs={12}
@@ -110,15 +113,7 @@ export default function Index() {
                                 autoComplete="current-password"
                             />
 
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                            >
-                                Sign In
-                            </Button>
+                            <Login />
                             <Grid container>
                                 <Grid item xs>
                                     <Link href="#" variant="body2">

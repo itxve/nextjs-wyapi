@@ -1,8 +1,11 @@
+import React, { useState, useEffect, useContext } from 'react';
 import '../styles/globals.css';
 import type { AppProps /* , AppContext */ } from 'next/app';
-//update
+
 import { createMuiTheme } from '@material-ui/core/styles';
+
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import Login from '@/pages/login';
 const theme = createMuiTheme({
     overrides: {
         MuiCssBaseline: {
@@ -16,10 +19,17 @@ const theme = createMuiTheme({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+    //是否登陆
+    const [state, setstate] = useState(true);
+    useEffect(() => {
+        if (!localStorage.getItem('token')) {
+            setstate(false);
+        }
+    }, []);
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Component {...pageProps} />
+            {!state ? <Login /> : <Component {...pageProps} />}
         </ThemeProvider>
     );
 }
