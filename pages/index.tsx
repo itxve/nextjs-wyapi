@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Card } from '@material-ui/core';
+import { Card, AppBar, Avatar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
+import type { User } from '@/types/Modal/User';
+import config from '@/config/index';
 
+const { PROXYAPI } = config;
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -22,12 +20,12 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default function Main(props: any) {
+export default function Main() {
     const classes = useStyles();
-    const [user, setUser] = useState(undefined);
+    const [user, setUser] = useState<User>(undefined);
     useEffect(() => {
-        if (localStorage) {
-            setUser(JSON.parse(localStorage.getItem('token') || ''));
+        if (localStorage?.getItem('token')) {
+            setUser(JSON.parse(localStorage.getItem('token') || '{}'));
         }
     }, []);
 
@@ -57,6 +55,14 @@ export default function Main(props: any) {
                     </Button>
                 </Toolbar>
             </AppBar>
+
+            {user && (
+                <Avatar
+                    style={{ marginTop: '100px' }}
+                    alt="Remy Sharp"
+                    src={`${PROXYAPI}/${encodeURI(user?.avatar_url || '')}`}
+                />
+            )}
             <Card>{JSON.stringify(user)}</Card>
         </div>
     );

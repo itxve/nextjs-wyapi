@@ -14,13 +14,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse): void
         })
         .then(({ body, type }) => {
             body.then((data) => {
-                var buf = Buffer.from(data);
-                // var view = new Uint8Array(data);
-                // for (var i = 0; i < buf.length; ++i) {
-                //     buf[i] = view[i];
-                // }
                 res.writeHead(200, { 'Content-Type': type || '' });
-                res.end(buf);
+                res.end(Buffer.from(data));
             });
         })
         .catch((error) => {
