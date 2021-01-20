@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Card, AppBar, Avatar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
+import {
+    Card,
+    AppBar,
+    Avatar,
+    Toolbar,
+    Typography,
+    Button,
+    IconButton,
+    Container
+} from '@material-ui/core';
 import type { User } from '@/types/Modal/User';
 import config from '@/config/index';
 
@@ -51,19 +60,20 @@ export default function Main() {
                         }}
                         color="inherit"
                     >
-                        Login Out
+                        退出
                     </Button>
                 </Toolbar>
             </AppBar>
-
-            {user && (
-                <Avatar
-                    style={{ marginTop: '100px' }}
-                    alt="Remy Sharp"
-                    src={`${PROXYAPI}/${encodeURI(user?.avatar_url || '')}`}
-                />
-            )}
-            <Card>{JSON.stringify(user)}</Card>
+            <Container>
+                {user && (
+                    <Avatar
+                        style={{ marginTop: '64px' }}
+                        alt="Remy Sharp"
+                        src={`${PROXYAPI}/${encodeURIComponent(user?.avatar_url || '')}`}
+                    />
+                )}
+                <Card></Card>
+            </Container>
         </div>
     );
 }

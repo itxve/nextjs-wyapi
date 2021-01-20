@@ -1,4 +1,5 @@
-import mysql, { Pool } from 'mysql';
+import mysql, { Pool, PoolConnection } from 'mysql2';
+import { type } from 'os';
 
 var pool: Pool = mysql.createPool({
     connectionLimit: 5,
@@ -9,24 +10,11 @@ var pool: Pool = mysql.createPool({
 });
 
 /**
- *
- * @param s  Sql
- * @param c  callback
+ *  通用查询接口
+ * @param S  Sql
+ * @param P  Parms
+ * @param C  callback
  */
-function query(s, c) {
-    pool.getConnection(function (err, connection) {
-        if (err) throw err; // not connected!
-        // Use the connection
-        connection.query('SELECT something FROM sometable', function (error, results, fields) {
-            // When done with the connection, release it.
-            connection.release();
-
-            // Handle error after the release.
-            if (error) throw error;
-
-            // Don't use the connection here, it has been returned to the pool.
-        });
-    });
+export function execute(S: string, P: any | any[] | { [param: string]: any }) {
+    return pool.promise().execute(S, P);
 }
-
-export default { query };

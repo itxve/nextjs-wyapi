@@ -5,13 +5,18 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import Login from '@/pages/login';
 const theme = createMuiTheme({
-    overrides: {
-        MuiCssBaseline: {
-            '@global': {
-                html: {
-                    WebkitFontSmoothing: 'auto'
-                }
-            }
+    palette: {
+        primary: {
+            light: '#757ce8',
+            main: '#6a1b9a',
+            dark: '#002884',
+            contrastText: '#fff'
+        },
+        secondary: {
+            light: '#ff7961',
+            main: '#ab47bc',
+            dark: '#ba000d',
+            contrastText: '#000'
         }
     }
 });

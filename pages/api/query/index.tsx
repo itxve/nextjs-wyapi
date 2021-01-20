@@ -1,16 +1,14 @@
-import connection from '@/db';
+import { Xuser, query, insert } from '@/db/xuser';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default function handler(req, res) {
-    var sql = 'SELECT * FROM xuser';
-    //查
-    connection.connect();
-    connection.query(sql, function (err, result) {
-        if (err) {
-            console.log('[SELECT ERROR] - ', err.message);
-            return;
-        }
-        console.log('--------------------------SELECT----------------------------');
-        res.send(result);
-        console.log('------------------------------------------------------------\n\n');
-    });
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method === 'GET') {
+        //查
+        const [rows] = await query([]);
+        const users = rows as Xuser[];
+        res.send(users);
+    } else {
+        const [rows] = await insert(req.body);
+        res.send(rows);
+    }
 }
