@@ -12,7 +12,7 @@ export default function Custom404() {
             script.setAttribute('homePageUrl', 'https://api.itxve.cn/');
             script.setAttribute('homePageName', '回到我的主页');
             document.querySelector('#N404')?.appendChild(script);
-            window.history.replaceState({}, '找不到页面了', 'https://api.itxve.cn//404');
+            window.history.replaceState({}, '找不到页面了', 'https://api.itxve.cn/404');
             return () => {
                 document.querySelector('#N404')?.removeChild(script);
             };
