@@ -38,4 +38,4 @@ function convertType(o: any) {
     }
     return 'null';
 }
-function transaction(params) {}
+function transaction(params: any) {}
