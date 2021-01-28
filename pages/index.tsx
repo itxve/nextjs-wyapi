@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import {
-    Card,
-    AppBar,
-    Avatar,
-    Toolbar,
-    Typography,
-    Button,
-    IconButton,
-    Container
-} from '@material-ui/core';
-import type { User } from '@/types/Modal/User';
-import config from '@/config/index';
-
-const { PROXYAPI } = config;
+import Weather from '@/components/Weather';
+import { AppBar, Avatar, Toolbar, Typography, Button, IconButton, Grid } from '@material-ui/core';
+import type { Db } from '@/types/Itxve';
+import TransitionsModal from '@/components/TransitionsModal';
+import TransitionDilog from '@/components/TransitionDilog';
+import config from '@/config';
+import UserBind from './UserBind';
+const { PROXYAPI, USERINFO } = config;
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -23,18 +17,23 @@ const useStyles = makeStyles((theme: Theme) =>
         menuButton: {
             marginRight: theme.spacing(2)
         },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            color: theme.palette.text.secondary
+        },
         title: {
             flexGrow: 1
         }
     })
 );
 
-export default function Main() {
+function Main(): JSX.Element {
     const classes = useStyles();
-    const [user, setUser] = useState<User>(undefined);
+    const [user, setUser] = useState<Db.Xuser>(undefined);
     useEffect(() => {
-        if (localStorage?.getItem('token')) {
-            setUser(JSON.parse(localStorage.getItem('token') || '{}'));
+        if (localStorage?.getItem(USERINFO)) {
+            setUser(JSON.parse(localStorage.getItem(USERINFO) || '{}'));
         }
     }, []);
 
@@ -64,16 +63,35 @@ export default function Main() {
                     </Button>
                 </Toolbar>
             </AppBar>
-            <Container>
-                {user && (
-                    <Avatar
-                        style={{ marginTop: '64px' }}
-                        alt="Remy Sharp"
-                        src={`${PROXYAPI}/${encodeURIComponent(user?.avatar_url || '')}`}
-                    />
-                )}
-                <Card></Card>
-            </Container>
+            <Grid container spacing={3} style={{ marginTop: '64px' }}>
+                <Grid item xs={12} md={6} style={{ border: '1px solid black', width: 'calc(50%)' }}>
+                    {user && (
+                        <Avatar
+                            alt="Remy Sharp"
+                            sizes=""
+                            src={`${PROXYAPI}/${encodeURIComponent(user?.avatar_url || '')}`}
+                        />
+                    )}
+                    <div>
+                        <TransitionsModal disableBackdropClick container={<span>用户绑定</span>}>
+                            <UserBind />
+                        </TransitionsModal>
+
+                        <TransitionDilog openNode={<span>cccc</span>} title="搜索">
+                            opopop
+                        </TransitionDilog>
+                    </div>
+                </Grid>
+                <Grid
+                    item
+                    xs={12}
+                    md={6}
+                    style={{ border: '1px solid black', width: 'calc(50% )' }}
+                >
+                    <Weather />
+                </Grid>
+            </Grid>
         </div>
     );
 }
+export default Main;

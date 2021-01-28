@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import App, { AppProps, AppContext } from 'next/app';
 import '../styles/globals.css';
-import type { AppProps, AppContext } from 'next/app';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import Login from '@/pages/login';
+import { appWithTranslation } from '@/i18n';
+import config from '@/config';
+const { USERINFO } = config;
+
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -30,16 +34,23 @@ function MyApp({ Component, pageProps }: AppProps) {
             //是 Custom404页面
             setstate(true);
         } else {
-            if (!localStorage.getItem('token')) {
+            if (!localStorage.getItem(USERINFO)) {
                 setstate(false);
             }
         }
     }, []);
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            {!state ? <Login /> : <Component {...pageProps} />}
+            {!state ? <Login {...pageProps} /> : <Component {...pageProps} />}
         </ThemeProvider>
     );
 }
-export default MyApp;
+MyApp.getInitialProps = async (appContext: AppContext) => {
+    return {
+        ...(await App.getInitialProps(appContext))
+    };
+};
+
+export default appWithTranslation(MyApp);

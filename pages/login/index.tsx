@@ -1,14 +1,10 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { Typography, Avatar, Link, TextField, CssBaseline, Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import TypedAni from '@/components/TypedAni';
 import Login from './Login';
+import { withTranslation, Trans } from '@/i18n';
+import { TFunction } from 'next-i18next';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Index() {
+function Index({ t }: { readonly t: TFunction }) {
     const classes = useStyles();
     return (
         <div
@@ -54,7 +50,7 @@ export default function Index() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundImage: 'url(https://api.72.rs/images/api.php)',
+                // backgroundImage: 'url(https://api.72.rs/images/api.php)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
@@ -114,15 +110,16 @@ export default function Index() {
                             />
 
                             <Login />
+
                             <Grid container>
                                 <Grid item xs>
                                     <Link href="#" variant="body2">
-                                        Forgot password?
+                                        {t('name1')}
                                     </Link>
                                 </Grid>
                                 <Grid item>
                                     <Link href="#" variant="body2">
-                                        {"Don't have an account? Sign Up"}
+                                        {t('register')}
                                     </Link>
                                 </Grid>
                             </Grid>
@@ -133,3 +130,8 @@ export default function Index() {
         </div>
     );
 }
+
+Index.getInitialProps = async () => ({
+    namespacesRequired: []
+});
+export default withTranslation()(Index);
