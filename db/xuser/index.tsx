@@ -15,6 +15,7 @@ export function query(P: Db.Xuser | []) {
 
 //注册
 export async function register(auth: Db.UserDto) {
+    if (!auth) return;
     const result = await transaction(async (con: PConnection) => {
         const [row] = await con.query(xauth.SQL.one, [auth?.type, auth?.thid]);
         const count = (row as any)?.[0];
@@ -24,7 +25,8 @@ export async function register(auth: Db.UserDto) {
                 reallname: auth?.name || '',
                 password: '123456',
                 mail: '',
-                phone: ''
+                phone: '',
+                avatar_url: ''
             };
             const rsh = await pExceute<ResultSetHeader>(con, SQL.save, user);
             user.id = rsh.insertId;
@@ -40,7 +42,13 @@ export async function register(auth: Db.UserDto) {
 }
 
 //增强类型
-export async function pExceute<T>(con: PConnection, sql: string, parms: any): Promise<T> {
-    const [row] = await con.execute(Ireplace(sql, parms));
-    return Promise.resolve((row as any) as T);
+export function pExceute<T>(con: PConnection, sql: string, parms: any): Promise<T> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const [row] = await con.execute(Ireplace(sql, parms));
+            return resolve((row as any) as T);
+        } catch (error) {
+            return reject(error);
+        }
+    });
 }

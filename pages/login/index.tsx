@@ -3,7 +3,7 @@ import { Typography, Avatar, Link, TextField, CssBaseline, Paper, Grid } from '@
 import { makeStyles } from '@material-ui/core/styles';
 import TypedAni from '@/components/TypedAni';
 import Login from './Login';
-import { withTranslation, Trans } from '@/i18n';
+import { withTranslation } from '@/i18n';
 import { TFunction } from 'next-i18next';
 
 const useStyles = makeStyles((theme) => ({

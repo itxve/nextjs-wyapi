@@ -17,6 +17,7 @@ export declare namespace Db {
               login: string;
               name: string;
               email?: string;
+              avatar_url: string;
           }
         | undefined;
 
@@ -28,6 +29,7 @@ export declare namespace Db {
               password: string;
               mail?: string;
               phone?: string;
+              avatar_url: string;
           }
         | undefined;
 }
