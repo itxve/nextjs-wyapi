@@ -5,6 +5,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import Login from '@/pages/login';
 import { appWithTranslation } from '@/i18n';
+import Snow from '@/pages/snow/index';
 import config from '@/config';
 const { USERINFO } = config;
 
@@ -44,6 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             {!state ? <Login {...pageProps} /> : <Component {...pageProps} />}
+            <Snow></Snow>
         </ThemeProvider>
     );
 }

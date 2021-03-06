@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { GitHub } from '@material-ui/icons';
 import { CircularProgress, Button, Grid } from '@material-ui/core';
 import config from '@/config';
+import { add } from 'ts-snow';
+
 const { github, USERINFO } = config;
+console.log('assss', add(1, 3));
 
 export default function Login(): JSX.Element {
     const [loading, setLoading] = useState(false);

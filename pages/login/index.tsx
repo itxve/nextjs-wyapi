@@ -41,7 +41,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Index({ t }: { readonly t: TFunction }) {
+function Index({ t, ...props }: { readonly t: TFunction }) {
+    console.log('propsprops', props);
+
     const classes = useStyles();
     return (
         <div
@@ -50,18 +52,17 @@ function Index({ t }: { readonly t: TFunction }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                // backgroundImage: 'url(https://api.72.rs/images/api.php)',
+                backgroundImage: 'url(https://api.72.rs/images/api.php)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
             }}
         >
             <Grid container component="main" className={classes.root}>
-                <CssBaseline />
                 <Grid
                     item
+                    sm={false}
                     xs={false}
-                    sm={4}
                     md={7}
                     className={classes.image}
                     style={{ backgroundColor: 'rgba(253,253,253,.85)' }}
@@ -114,12 +115,12 @@ function Index({ t }: { readonly t: TFunction }) {
                             <Grid container>
                                 <Grid item xs>
                                     <Link href="#" variant="body2">
-                                        {t('name1')}
+                                        {t('register')}
                                     </Link>
                                 </Grid>
                                 <Grid item>
                                     <Link href="#" variant="body2">
-                                        {t('register')}
+                                        {t('forget')}
                                     </Link>
                                 </Grid>
                             </Grid>
