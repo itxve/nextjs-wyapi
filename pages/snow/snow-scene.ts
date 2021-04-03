@@ -139,3 +139,5 @@ export class SnowScene {
         this.canvas.height = this.container.clientHeight;
     }
 }
+
+export default () => {};

@@ -84,3 +84,4 @@ export class Snowflake {
         this.alpha = 0.5 + Math.random() * 0.5;
     }
 }
+export default () => {};
