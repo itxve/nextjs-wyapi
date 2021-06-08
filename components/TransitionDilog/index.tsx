@@ -79,7 +79,7 @@ export default function CustomizedDialogs(props: {
         beforOnClose,
         beforOnOpen,
         afterOnClose,
-        disableBackdropClick
+        disableBackdropClick = false
     } = props;
     const [open, setOpen] = React.useState(false);
 

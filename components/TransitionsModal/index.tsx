@@ -36,7 +36,7 @@ export default function TransitionsModal(props: {
         beforOnClose,
         beforOnOpen,
         afterOnClose,
-        disableBackdropClick
+        disableBackdropClick = false
     } = props;
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
